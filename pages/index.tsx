@@ -4,26 +4,27 @@ import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
+import { GetStaticProps } from 'next'
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData
-    }
-  }
-}
-export default function Home({ allPostsData }) {
+export default function Home({
+  allPostsData
+}: {
+  allPostsData: {
+    date: string
+    title: string
+    id: string
+  }[]
+}) {
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>In the beginning, God created the heavens and the earth</p>
+        <p>By loving-kindness and trueness error is atoned for, and in the fear of Jehovah one turns away from bad. - Proverb 16:6</p>
         <p>
-          (This is a sample website - you’ll be building a site like this on{' '}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
+          (This is a NextJS sample website converted to Typescript based on{' '}
+          <a href="https://nextjs.org/learn">the Next.js tutorial</a>.)
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
@@ -44,4 +45,13 @@ export default function Home({ allPostsData }) {
       </section>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const allPostsData = getSortedPostsData()
+  return {
+    props: {
+      allPostsData
+    }
+  }
 }
